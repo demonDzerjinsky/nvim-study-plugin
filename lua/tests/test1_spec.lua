@@ -1,0 +1,5 @@
+describe("bunch of tests in test1", function()
+    it("can be required", function()
+        require("test2")
+    end)
+end)
