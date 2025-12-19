@@ -3,5 +3,5 @@ P = function(obj)
     return obj
 end
 
-vim.keymap.set('n', "<leader>xx", ":source %<CR>")
+vim.keymap.set('n', "<leader>xx", ":w<CR>:source %<CR>")
 vim.keymap.set('n', "<leader>gh", ":Telescope help_tags<CR>")
