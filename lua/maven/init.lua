@@ -22,11 +22,16 @@ end
 local makeOpt = function()
     local wsize = winsize()
     local opt = {
-        relative = 'editor',
+        relative = 'win',
         width = wsize[1],
         height = wsize[2],
         col = wsize[3],
-        row = wsize[4]
+        row = wsize[4],
+        border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+        title = 'maven clean compile',
+        title_pos = 'center',
+        footer = 'press <Enter> to continue with editor',
+        footer_pos = 'center'
     }
     return opt
 end
@@ -34,6 +39,9 @@ end
 local getWin = function(buffer)
     local opt = makeOpt()
     local win = vim.api.nvim_open_win(buffer, true, opt)
+    if win == 0 then
+        vim.notify("create window error in getWin()", vim.log.levels.ERROR, {})
+    end
     return win
 end
 
@@ -50,7 +58,6 @@ M.do_mvn_clean_compile = function()
         stdout_buffered = true,
         stderr_buffered = true,
         on_stdout = receiver,
-        on_stderr = receiver
     })
 end
 
