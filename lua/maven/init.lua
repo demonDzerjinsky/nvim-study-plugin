@@ -39,20 +39,19 @@ end
 
 local receiver = function(job_id, data, event)
     if data then
-        local buffer = getBuffer(data)
-        local win = getWin(buffer)
+        local lbuf = getBuffer(data)
+        local lwin = getWin(lbuf)
     end
 end
 
 M.do_mvn_clean_compile = function()
     local cmd = { 'mvn', 'clean', 'compile' }
     vim.fn.jobstart(cmd, {
-        stdout_buffered = yes,
-        stderr_buffered = yes,
+        stdout_buffered = true,
+        stderr_buffered = true,
         on_stdout = receiver,
         on_stderr = receiver
     })
 end
 
-P(makeOpt())
 return M
