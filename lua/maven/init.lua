@@ -1,5 +1,6 @@
 local M = {}
 M.buffer = nil -- todo clear on exit
+M.win = nil
 
 local winsize = function()
     local width = vim.api.nvim_get_option('columns')
@@ -33,7 +34,7 @@ local make_win_opt = function()
         col = wsize[3],
         row = wsize[4],
         border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
-        title = 'maven clean compile', --support parameter 
+        title = 'maven clean compile',                    --support parameter
         title_pos = 'center',
         footer = 'press <Enter> to continue with editor', --todo support pressing Enter
         footer_pos = 'center'
@@ -42,7 +43,8 @@ local make_win_opt = function()
 end
 
 local open_win = function()
-    vim.api.nvim_open_win(M.buffer, true, make_win_opt())
+    if M.win then return end
+    M.win = vim.api.nvim_open_win(M.buffer, true, make_win_opt())
 end
 
 local receiver = function(job_id, data, event)
