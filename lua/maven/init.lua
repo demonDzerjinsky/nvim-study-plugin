@@ -1,6 +1,8 @@
 local M = {}
-M.buffer = nil -- todo clear on exit
+M.buffer = nil
 M.win = nil
+M.cmd = nil
+M.is_open = nil -- support parmeter: init on start and clear on window exit
 
 local win_size = function()
     local width = vim.api.nvim_get_option('columns')
@@ -34,7 +36,7 @@ local make_win_opt = function()
         col = wsize[3],
         row = wsize[4],
         border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
-        title = 'maven clean compile',                    --support parameter
+        title = table.concat(M.cmd, ' '),
         title_pos = 'center',
         footer = 'press <Enter> to continue with editor', --todo support pressing Enter
         footer_pos = 'center'
@@ -54,19 +56,54 @@ local supply = function(job_id, data, event)
     end
 end
 
-local open_on_start = function(msg)
-    supply(nil, { os.date("The time is %I:%M %p on %B %d, %Y: ", os.time())..msg }, nil)
+local log = function(msg)
+    supply(nil, { os.date("The time is %I:%M %p on %B %d, %Y: ", os.time()) .. msg }, nil)
 end
 
-M.do_mvn_clean_compile = function()
-    local cmd = { 'mvn', 'clean', 'compile' } --todo make parameter
-    open_on_start("starting " .. cmd[1])
-    vim.fn.jobstart(cmd, {
+local clear_state = function()
+    M.buffer = nil
+    M.win = nil
+    M.cmd = nil
+end
+
+local do_process = function()
+    log("starting " .. M.cmd[1])
+    vim.fn.jobstart(M.cmd, {
         stdout_buffered = false,
         on_stdout = supply,
         on_strerr = supply,
+        on_exit = function()
+            log(M.cmd[1] .. " completed")
+            clear_state()
+        end
     })
 end
+
+M.do_mvn_clean_compile = function()
+    M.cmd = { 'mvn', 'clean', 'compile' }
+    do_process()
+end
+
+M.do_mvn_clean_test = function()
+    M.cmd = { 'mvn', 'clean', 'test' }
+    do_process()
+end
+
+M.do_mvn_clean_package = function()
+    M.cmd = { 'mvn', 'clean', 'package' }
+    do_process()
+end
+
+M.do_mvn_clean_install = function()
+    M.cmd = { 'mvn', 'clean', 'install' }
+    do_process()
+end
+
+M.do_mvn_clean_deploy = function()
+    M.cmd = { 'mvn', 'clean', 'deploy' }
+    do_process()
+end
+
 
 --[[todo make nmap for user command
 - default keqmap <leader>mc mt mp mi md - phases
