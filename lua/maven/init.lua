@@ -113,10 +113,8 @@ end
 
 
 --[[todo make nmap for user command
-- default keqmap <leader>mc mt mp mi md - phases
-    + mc
-    - mt input tag dialog
-- save and restore keymappings + check it runs on maven project (alert if not) and if maven project - write all buffers before
+- save and restore keymappings 
+- block double run maven plugun until not exits from window
     ]]
 
 return M
