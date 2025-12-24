@@ -47,26 +47,32 @@ local open_win = function()
     M.win = vim.api.nvim_open_win(M.buffer, true, make_win_opt())
 end
 
-local receiver = function(job_id, data, event)
+local supply = function(job_id, data, event)
     if data then
         push_buffer(data)
         open_win()
     end
 end
 
+local open_on_start = function(msg)
+    supply(nil, { msg }, nil)
+end
+
 M.do_mvn_clean_compile = function()
     local cmd = { 'mvn', 'clean', 'compile' } --todo make parameter
+    open_on_start("starting " .. cmd[1])
     vim.fn.jobstart(cmd, {
         stdout_buffered = false,
-        on_stdout = receiver, --tode add error
+        on_stdout = supply,
+        on_strerr = supply,
     })
 end
 
 --[[todo make nmap for user command
 - default keqmap <leader>mc mt mp mi md - phases
+    + mc
     - mt input tag dialog
-- save and restore keymappings + check it runs on maven project (alert if not)
+- save and restore keymappings + check it runs on maven project (alert if not) and if maven project - write all buffers before
     ]]
 
 return M
---todo paging with cursor
