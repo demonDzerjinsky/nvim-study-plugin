@@ -2,7 +2,7 @@ local M = {}
 M.buffer = nil -- todo clear on exit
 M.win = nil
 
-local winsize = function()
+local win_size = function()
     local width = vim.api.nvim_get_option('columns')
     local height = vim.api.nvim_get_option('lines')
     local wheight = math.min(math.ceil(height * 3 / 4), 30)
@@ -26,7 +26,7 @@ local push_buffer = function(data)
 end
 
 local make_win_opt = function()
-    local wsize = winsize()
+    local wsize = win_size()
     local opt = {
         relative = 'win',
         width = wsize[1],
@@ -61,6 +61,12 @@ M.do_mvn_clean_compile = function()
         on_stdout = receiver, --tode add error
     })
 end
---todo make user command
---todo make nmap for user command
+
+--[[todo make nmap for user command
+- default keqmap <leader>mc mt mp mi md - phases
+    - mt input tag dialog
+- save and restore keymappings + check it runs on maven project (alert if not)
+    ]]
+
 return M
+--todo paging with cursor
