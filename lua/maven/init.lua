@@ -55,7 +55,7 @@ local supply = function(job_id, data, event)
 end
 
 local open_on_start = function(msg)
-    supply(nil, { msg }, nil)
+    supply(nil, { os.date("The time is %I:%M %p on %B %d, %Y: ", os.time())..msg }, nil)
 end
 
 M.do_mvn_clean_compile = function()
