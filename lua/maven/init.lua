@@ -4,11 +4,11 @@ M.win = nil
 M.cmd = nil
 M.is_open = nil -- support parmeter: init on start and clear on window exit
 local cmds = {
-    {'mvn', 'clean', 'compile'},
-    {'mvn', 'clean', 'test'},
-    {'mvn', 'clean', 'package'},
-    {'mvn', 'clean', 'install'},
-    {'mvn', 'clean', 'deploy'},
+    { 'mvn', 'clean', 'compile' },
+    { 'mvn', 'clean', 'test' },
+    { 'mvn', 'clean', 'package' },
+    { 'mvn', 'clean', 'install' },
+    { 'mvn', 'clean', 'deploy' },
 }
 
 local win_size = function()
@@ -113,8 +113,8 @@ end
 
 
 --[[todo make nmap for user command
-- save and restore keymappings 
+- save and restore keymappings
 - block double run maven plugun until not exits from window
-    ]]
+--]]
 
 return M
