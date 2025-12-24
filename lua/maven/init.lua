@@ -3,6 +3,13 @@ M.buffer = nil
 M.win = nil
 M.cmd = nil
 M.is_open = nil -- support parmeter: init on start and clear on window exit
+local cmds = {
+    {'mvn', 'clean', 'compile'},
+    {'mvn', 'clean', 'test'},
+    {'mvn', 'clean', 'package'},
+    {'mvn', 'clean', 'install'},
+    {'mvn', 'clean', 'deploy'},
+}
 
 local win_size = function()
     local width = vim.api.nvim_get_option('columns')
@@ -80,27 +87,27 @@ local do_process = function()
 end
 
 M.do_mvn_clean_compile = function()
-    M.cmd = { 'mvn', 'clean', 'compile' }
+    M.cmd = cmds[1]
     do_process()
 end
 
 M.do_mvn_clean_test = function()
-    M.cmd = { 'mvn', 'clean', 'test' }
+    M.cmd = cmds[2]
     do_process()
 end
 
 M.do_mvn_clean_package = function()
-    M.cmd = { 'mvn', 'clean', 'package' }
+    M.cmd = cmds[3]
     do_process()
 end
 
 M.do_mvn_clean_install = function()
-    M.cmd = { 'mvn', 'clean', 'install' }
+    M.cmd = cmds[4]
     do_process()
 end
 
 M.do_mvn_clean_deploy = function()
-    M.cmd = { 'mvn', 'clean', 'deploy' }
+    M.cmd = cmds[5]
     do_process()
 end
 
