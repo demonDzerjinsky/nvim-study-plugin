@@ -6,7 +6,6 @@ end
 vim.keymap.set('n', '<leader><leader>x', ":w<CR>:source %<CR>")
 vim.keymap.set('n', '<leader>x', ":.lua<CR>")
 vim.keymap.set('v', '<leader>x', ":lua<CR>")
--- vim.keymap.set('n', '<leader>tl', "<Plug>PlenaryTestFile")
 
 -- maven control
 vim.api.nvim_create_user_command('MvnCleanCompile', function() require("maven").do_mvn_clean_compile() end, {})
