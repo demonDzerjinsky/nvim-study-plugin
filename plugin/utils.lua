@@ -4,7 +4,7 @@ P = function(obj)
 end
 
 vim.keymap.set('n', '<leader><leader>x', ":w<CR>:source %<CR>")
-vim.keymap.set('n', '<leader>x', ":.lua<CR>")
+vim.keymap.set('n', '<leader>xx', ":.lua<CR>")
 vim.keymap.set('v', '<leader>x', ":lua<CR>")
 
 -- maven control
