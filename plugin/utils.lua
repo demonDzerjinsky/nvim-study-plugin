@@ -7,7 +7,7 @@ vim.keymap.set('n', '<leader><leader>x', ":w<CR>:source %<CR>")
 vim.keymap.set('n', '<leader>xx', ":.lua<CR>")
 vim.keymap.set('v', '<leader>x', ":lua<CR>")
 
--- maven control
+-- maven support
 vim.api.nvim_create_user_command('MvnCleanCompile', function() require("maven").do_mvn_clean_compile() end, {})
 vim.api.nvim_create_user_command('MvnCleanTest', function() require("maven").do_mvn_clean_test() end, {})
 vim.api.nvim_create_user_command('MvnCleanPackage', function() require("maven").do_mvn_clean_package() end, {})
@@ -18,3 +18,7 @@ vim.keymap.set('n', '<leader>mt', ":MvnCleanTest<CR>")
 vim.keymap.set('n', '<leader>mp', ":MvnCleanPackage<CR>")
 vim.keymap.set('n', '<leader>mi', ":MvnCleanInstall<CR>")
 vim.keymap.set('n', '<leader>md', ":MvnCleanDeploy<CR>")
+
+--python temp run keymap
+vim.keymap.set('n', '<leader>pr', ":w<CR>:!python %<CR>")
+--todo make float window same as maven support, refactor 'maven' plugin code 
